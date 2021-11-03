@@ -23,9 +23,8 @@ class DailySchedule:
 
     def __init__(self):
         self.customer_queue = []
-        self.taxes = 0
-        self.surcharge = 0
-        self.flat_fee = 0
+        self._taxes = 0.07
+        self._surcharge = 10
 
     def add_customer(self):
         pass

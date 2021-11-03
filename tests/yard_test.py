@@ -42,6 +42,16 @@ class MyTestCase(unittest.TestCase):
         # Assert
         self.assertEqual(expected, actual)
 
+    def test_square_footage_first_range_low(self):
+        # Arrange
+        yard = Yard()
+        yard.square_footage = 320
+        expected = 30
+        # Actual
+        actual = yard.calculate_total()
+        # Assert
+        self.assertEqual(expected, actual)
+
     def test_square_footage_second_range(self):
         # Arrange
         yard = Yard()

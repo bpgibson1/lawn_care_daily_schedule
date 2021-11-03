@@ -23,8 +23,21 @@ class Yard:
     def __init__(self):
         self.yard_name = ""
         self.square_footage = 0
-        self.price_breaks = {}
         self.total_price = 0
+        self._price_breaks = {0: .09, 500: .08, 1000: .06, 1500: .05}
+        self._price_break_keys = [0, 500, 1000, 1500]
 
     def calculate_total(self):
-        pass
+        price_per_square_foot = 0
+        if self.square_footage <= self._price_break_keys[0]:
+            raise ValueError
+        elif self.square_footage <= self._price_break_keys[1]:
+            price_per_square_foot = self._price_breaks[self._price_break_keys[0]]
+        elif self._price_break_keys[1] < self.square_footage <= self._price_break_keys[2]:
+            price_per_square_foot = self._price_breaks[self._price_break_keys[1]]
+        elif self._price_break_keys[2] < self.square_footage <= self._price_break_keys[3]:
+            price_per_square_foot = self._price_breaks[self._price_break_keys[2]]
+        elif self.square_footage > self._price_break_keys[3]:
+            price_per_square_foot = self._price_breaks[self._price_break_keys[3]]
+
+        return int(round(self.square_footage * price_per_square_foot * 100)) / 100

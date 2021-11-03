@@ -17,6 +17,7 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
+from queue import Queue
 
 
 class Customer:
@@ -25,4 +26,7 @@ class Customer:
         self.name = ""
         self.address = ""
         self.phone_num = ""
-        self.yards = []
+        self.yards_queue = Queue()
+
+    def set_yard(self, item):
+        self.yards_queue.enqueue(item)

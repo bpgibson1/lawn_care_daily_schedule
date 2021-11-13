@@ -24,9 +24,16 @@ class Application:
 
     def __init__(self, main_window=None):
         self.mw = main_window
+        self.name_input = Entry(self.mw)
+        self.address_input = Entry(self.mw)
+        self.number_input = Entry(self.mw)
 
     def create_new_customer(self):
-        pass
+
+        # Delete what was in the field
+        self.name_input.delete('0', 'end')
+        self.address_input.delete('0', 'end')
+        self.number_input.delete('0', 'end')
 
     def build_yard(self):
         nw = Toplevel(self.mw)
@@ -49,7 +56,7 @@ class Application:
         size_input = Entry(nw)
         size_input.place(x=175, y=125)
 
-        submit_button = Button(nw, text='Submit', width=25, font=('Lucida Console', 10, 'normal'), command=nw.destroy)
+        submit_button = Button(nw, text='Submit and Exit', width=25, font=('Lucida Console', 10, 'normal'), command=nw.destroy)
         submit_button.place(x=25, y=225)
 
         add_yard_button = Button(nw, text='Add Another Yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
@@ -59,7 +66,7 @@ class Application:
     def build(self):
         # build main window
         self.mw.title("Lawn Care Daily Schedule")
-        self.mw.geometry('500x300')
+        self.mw.geometry('500x400')
         self.mw.configure(background='#eee8d5')
 
         title_label = Label(self.mw, text='Enter Customer Contact Info', bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
@@ -68,26 +75,26 @@ class Application:
         name_label = Label(self.mw, text='Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         name_label.place(x=25, y=75)
 
-        name_input = Entry(self.mw)
-        name_input.place(x=175, y=75)
+        self.name_input.place(x=175, y=75)
 
         address_label = Label(self.mw, text='Address:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         address_label.place(x=25, y=125)
 
-        address_input = Entry(self.mw)
-        address_input.place(x=175, y=125)
+        self.address_input.place(x=175, y=125)
 
         number_label = Label(self.mw, text='Phone Number:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         number_label.place(x=25, y=175)
 
-        number_input = Entry(self.mw)
-        number_input.place(x=175, y=175)
+        self.number_input.place(x=175, y=175)
+
+        add_yard_button = Button(self.mw, text='Add Yard', width=15, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
+        add_yard_button.place(x=335, y=175)
 
         exit_button = Button(self.mw, text='Exit', width=25, font=('Lucida Console', 10, 'normal'), command=self.mw.destroy)
         exit_button.place(x=25, y=225)
 
-        add_yard_button = Button(self.mw, text='Add Yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
-        add_yard_button.place(x=270, y=225)
+        submit_button = Button(self.mw, text='Submit Customer', width=25, font=('Lucida Console', 10, 'normal'), command=self.create_new_customer)
+        submit_button.place(x=270, y=225)
 
 
 def main():

@@ -18,6 +18,7 @@ my program.
 ***************************************************************
 """
 from tkinter import *
+from customer import Customer
 
 
 class Application:
@@ -28,12 +29,15 @@ class Application:
         self.address_input = Entry(self.mw)
         self.number_input = Entry(self.mw)
         self.customer_name = ""
-        self.customer_obj = None
+        self.customer_objs = []
 
     def create_new_customer(self):
         self.customer_name = self.name_input.get()
-        print(self.customer_name)
-        address = self.address_input.get()
+
+        # create customer object and append it onto the list
+        c = Customer(self.name_input.get(), self.address_input.get(), self.number_input.get())
+        self.customer_objs.append(c)
+        
         # Reset the fields
         self.name_input.delete('0', 'end')
         self.address_input.delete('0', 'end')

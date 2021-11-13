@@ -19,6 +19,7 @@ my program.
 """
 from tkinter import *
 
+
 class Application:
 
     def __init__(self, main_window=None):
@@ -36,22 +37,22 @@ class Application:
         title_label = Label(nw, text='Enter Yard:', bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
         title_label.place(x=25, y=25)
 
-        yard_name_label = Label(nw, text='Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
+        yard_name_label = Label(nw, text='Yard Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         yard_name_label.place(x=25, y=75)
 
         yard_name_input = Entry(nw)
         yard_name_input.place(x=175, y=75)
 
-        size_label = Label(nw, text='Address:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
+        size_label = Label(nw, text='Square Footage:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         size_label.place(x=25, y=125)
 
         size_input = Entry(nw)
         size_input.place(x=175, y=125)
 
-        exit_button = Button(nw, text='Exit', width=25, font=('Lucida Console', 10, 'normal'), command=nw.destroy)
-        exit_button.place(x=25, y=225)
+        submit_button = Button(nw, text='Submit', width=25, font=('Lucida Console', 10, 'normal'), command=nw.destroy)
+        submit_button.place(x=25, y=225)
 
-        add_yard_button = Button(nw, text='Add Yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
+        add_yard_button = Button(nw, text='Add Another Yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         add_yard_button.place(x=270, y=225)
 
 

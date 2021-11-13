@@ -27,10 +27,14 @@ class Application:
         self.name_input = Entry(self.mw)
         self.address_input = Entry(self.mw)
         self.number_input = Entry(self.mw)
+        self.customer_name = ""
+        self.customer_obj = None
 
     def create_new_customer(self):
-
-        # Delete what was in the field
+        self.customer_name = self.name_input.get()
+        print(self.customer_name)
+        address = self.address_input.get()
+        # Reset the fields
         self.name_input.delete('0', 'end')
         self.address_input.delete('0', 'end')
         self.number_input.delete('0', 'end')
@@ -41,7 +45,7 @@ class Application:
         nw.geometry('500x300')
         nw.configure(background='#eee8d5')
 
-        title_label = Label(nw, text='Enter Yard:', bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
+        title_label = Label(nw, text='Enter Yard: Customer:' + self.customer_name, bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
         title_label.place(x=25, y=25)
 
         yard_name_label = Label(nw, text='Yard Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
@@ -61,7 +65,6 @@ class Application:
 
         add_yard_button = Button(nw, text='Add Another Yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         add_yard_button.place(x=270, y=225)
-
 
     def build(self):
         # build main window

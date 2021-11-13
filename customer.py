@@ -22,10 +22,10 @@ from queue import Queue
 
 class Customer:
 
-    def __init__(self):
-        self.name = ""
-        self.address = ""
-        self.phone_num = ""
+    def __init__(self, name, address, number):
+        self.name = name
+        self.address = address
+        self.phone_num = number
         self.yards_queue = Queue()
 
     def set_yard(self, item):

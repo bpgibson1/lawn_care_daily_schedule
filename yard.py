@@ -18,12 +18,13 @@ my program.
 ***************************************************************
 """
 
+
 class Yard:
 
-    def __init__(self):
-        self.yard_name = ""
-        self.square_footage = 0
-        self.total_price = 0
+    def __init__(self, name, square_footage):
+        self.yard_name = name
+        self.square_footage = square_footage
+        self.total_price = self.calculate_total()
         self._flat_fee = 30
         self._price_breaks = {0: .09, 500: .08, 1000: .06, 1500: .05}
         self._price_break_keys = [0, 500, 1000, 1500]

@@ -2,7 +2,7 @@
 **************************************************************
 Name        : priority_queue.py
 Author      : Bryner Gibson
-Created     : 10/20/2021
+Created     : 20211114
 Course      : CIS 152 Data Structures
 Version     : 1.0
 OS          : Windows 10
@@ -19,8 +19,8 @@ TURNED IN LATE DUE TO MILITARY OBLIGATIONS; COMMUNICATED DURING
 PRIOR CONVERSATION OVER EMAIL
 ***************************************************************
 """
-from module_6.list_based_queue.QueueEmptyException import QueueEmptyException
-from module_6.list_based_queue.QueueFullException import QueueFullException
+from exceptions.QueueEmptyException import QueueEmptyException
+from exceptions.QueueFullException import QueueFullException
 import collections
 
 
@@ -42,27 +42,23 @@ class PriorityQueue:
     def is_empty(self):
         return self.size() == 0
 
-    def is_full(self):
-        return False
-
     def add(self, item, priority):
         self.head = 0
-        if not self.is_full():
-            self.tail += 1
-            new_node = Node(item, priority)
-            if self.is_empty():
-                self.items.append(new_node)
-                return
+        self.tail += 1
+        new_node = Node(item, priority)
+        if self.is_empty():
             self.items.append(new_node)
-            sorting = True
-            while sorting:
-                sorting = False
-                for index in range(len(self.items) - 1):
-                    if self.alpha_priority[self.items[index].priority] > self.alpha_priority[self.items[index + 1].priority]:
-                        swap = self.items[index]
-                        self.items[index] = self.items[index + 1]
-                        self.items[index + 1] = swap
-                        sorting = True
+            return
+        self.items.append(new_node)
+        sorting = True
+        while sorting:
+            sorting = False
+            for index in range(len(self.items) - 1):
+                if self.alpha_priority[self.items[index].priority] > self.alpha_priority[self.items[index + 1].priority]:
+                    swap = self.items[index]
+                    self.items[index] = self.items[index + 1]
+                    self.items[index + 1] = swap
+                    sorting = True
         else:
             raise QueueFullException
 

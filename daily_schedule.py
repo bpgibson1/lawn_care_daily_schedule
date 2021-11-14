@@ -22,12 +22,8 @@ my program.
 class DailySchedule:
 
     def __init__(self):
-        self.customer_queue = []
         self._taxes = 0.07
         self._surcharge = 10
-
-    def add_customer(self):
-        pass
 
     def print_invoice(self):
         pass

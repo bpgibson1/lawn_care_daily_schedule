@@ -17,11 +17,13 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
+from priority_queue import PriorityQueue
 
 
 class DailySchedule:
 
     def __init__(self):
+        self.customer_priority_queue = PriorityQueue()
         self._taxes = 0.07
         self._surcharge = 10
 

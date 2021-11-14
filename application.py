@@ -33,20 +33,19 @@ class Application:
         self.yard_name_input = None
         self.size_input = None
         self.customer_name = ""
-        self.customer_objs = []
-        self.current_c_added = False
+        self.customer_obj = None
 
     def exit_yard(self):
-        self.current_c_added = False
+        # add to daily_schedule queue
+        self.customer_obj = None
         self.nw.destroy()
 
     def create_new_yard(self):
         # Create the customer unless it exists
-        if not self.current_c_added:
+        if self.customer_obj is None:
             self.create_new_customer()
-            self.current_c_added = True
         y = Yard(self.yard_name_input.get(), self.size_input.get())
-        self.customer_objs[len(self.customer_objs) - 1].yards_queue.enqueue(y)
+        self.customer_obj.yards_queue.enqueue(y)
 
         # set fields back to empty
 
@@ -55,8 +54,8 @@ class Application:
 
         # create customer object and append it onto the list
         c = Customer(self.name_input.get(), self.address_input.get(), self.number_input.get())
-        self.customer_objs.append(c)
-        print([obj.name for obj in self.customer_objs])
+        self.customer_obj = c
+        print(self.customer_obj.name)
         # Reset the fields
         self.name_input.delete('0', 'end')
         self.address_input.delete('0', 'end')

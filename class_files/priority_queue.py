@@ -89,18 +89,3 @@ class PriorityQueue:
                 queue_str += 'Priority: {} Item: {}\n'.format(item.priority, item.job_num)
             return queue_str
         return "Queue is Empty"
-
-
-if __name__ == '__main__':
-    pn = PriorityQueue()
-    pn.add("2365", "B")
-    pn.add("2785", "B")
-    pn.add("9875", "B")
-    pn.add("6995", "D")
-    pn.add("7995", "D")
-    pn.add("3591", "D")
-    pn.add("7853", "D")
-    pn.add("4632", "A")
-    pn.add("1973", "A")
-
-    print(pn.print_())

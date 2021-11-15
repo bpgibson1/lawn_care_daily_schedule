@@ -27,6 +27,7 @@ class Yard:
         self._flat_fee = 30
         self._price_breaks = {0: .09, 500: .08, 1000: .06, 1500: .05}
         self._price_break_keys = [0, 500, 1000, 1500]
+        self.priority = None
         self.total_price = None
 
     def calculate_total(self):
@@ -36,12 +37,16 @@ class Yard:
             raise ValueError
         elif self.square_footage <= self._price_break_keys[1]:
             price_per_square_foot = self._price_breaks[self._price_break_keys[0]]
+            self.priority = 'D'
         elif self._price_break_keys[1] < self.square_footage <= self._price_break_keys[2]:
             price_per_square_foot = self._price_breaks[self._price_break_keys[1]]
+            self.priority = 'C'
         elif self._price_break_keys[2] < self.square_footage <= self._price_break_keys[3]:
             price_per_square_foot = self._price_breaks[self._price_break_keys[2]]
+            self.priority = 'B'
         elif self.square_footage > self._price_break_keys[3]:
             price_per_square_foot = self._price_breaks[self._price_break_keys[3]]
+            self.priority = 'A'
 
         return self.flat_fee_validation(int(round(self.square_footage * price_per_square_foot * 100)) / 100)
 

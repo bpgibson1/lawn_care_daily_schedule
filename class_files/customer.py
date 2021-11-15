@@ -17,7 +17,7 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
-from queue import Queue
+from class_files.queue import Queue
 
 
 class Customer:

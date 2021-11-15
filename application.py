@@ -18,6 +18,7 @@ my program.
 ***************************************************************
 """
 from tkinter import *
+import re
 from class_files.customer import Customer
 from class_files.yard import Yard
 from class_files.daily_schedule import DailySchedule
@@ -34,8 +35,31 @@ class Application:
         self.yard_name_input = None
         self.size_input = None
         self.customer_obj = None
-        self.error_label = None
+        self.error_label = Label()
         self.daily_schedule = DailySchedule()
+
+    def validate_main_window(self):
+        self.error_label.destroy()
+        self.error_label = Label(self.mw, text='', bg='#eee8d5', fg='#eb4034', font=('Lucida Console', 10, 'bold'))
+        self.error_label.place(x=25, y=325)
+        if self.name_input.get() == "":
+            self.error_label.config(text='Please enter customer name')
+            return False
+        if self.address_input.get() == "":
+            self.error_label.config(text='Please enter customer address')
+            return False
+        if self.number_input.get() != "":
+            phone_re = '\w{3}-\w{3}-\w{4}'
+            if not re.search(phone_re, self.number_input.get()):
+                self.error_label.config(text='Incorrect number format (###-###-####)')
+                return False
+        else:
+            self.error_label.config(text='Please enter customer phone number')
+            return False
+        return True
+
+    def validate_yard_window(self):
+        pass
 
     def exit_yard(self):
         # add to daily_schedule queue
@@ -68,6 +92,10 @@ class Application:
         self.number_input.delete('0', 'end')
 
     def build_yard(self):
+        # add validation to ensure good input
+        if not self.validate_main_window():
+            return
+
         self.nw = Toplevel(self.mw)
         self.nw.title("Lawn Care Daily Schedule")
         self.nw.geometry('500x300')

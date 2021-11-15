@@ -17,6 +17,88 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
+import unittest
+from class_files.customer import Customer
+from class_files.daily_schedule import DailySchedule
+from class_files.yard import Yard
+
+
+class MyTestCase(unittest.TestCase):
+    def test_add_high_low(self):
+        # Arrange
+        yard = Yard("", 1250)
+        yard2 = Yard("", 480)
+        customer = Customer()
+        customer.set_yard(yard)
+        customer.set_yard(yard2)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "B"
+        self.assertEquals(expected, actual)
+
+    def test_add_low_high(self):
+        # Arrange
+        yard = Yard("", 1250)
+        yard2 = Yard("", 480)
+        customer = Customer()
+        customer.set_yard(yard2)
+        customer.set_yard(yard)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "B"
+        self.assertEquals(expected, actual)
+
+    def test_add_only_high(self):
+        # Arrange
+        yard = Yard("", 1250)
+        yard2 = Yard("", 480)
+        customer = Customer()
+        customer.set_yard(yard)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "B"
+        self.assertEquals(expected, actual)
+
+    def test_add_only_low(self):
+        # Arrange
+        yard = Yard("", 1250)
+        yard2 = Yard("", 480)
+        customer = Customer()
+        customer.set_yard(yard2)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "D"
+        self.assertEquals(expected, actual)
+
+    def test_add_out_of_range(self):
+        # Arrange
+        yard2 = Yard("", 0)
+        customer = Customer()
+        customer.set_yard(yard2)
+        ds = DailySchedule()
+        # Actual
+        # Assert
+        with self.assertRaises(ValueError):
+            ds.add_customer(customer)
+
+
+
 
 if __name__ == '__main__':
-    pass
+    unittest.main()

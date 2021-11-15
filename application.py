@@ -18,25 +18,28 @@ my program.
 ***************************************************************
 """
 from tkinter import *
-from customer import Customer
-from yard import Yard
+from class_files.customer import Customer
+from class_files.yard import Yard
+from class_files.daily_schedule import DailySchedule
 
 
 class Application:
 
     def __init__(self, main_window=None):
         self.mw = main_window
-        self.nw = None
         self.name_input = Entry(self.mw)
         self.address_input = Entry(self.mw)
         self.number_input = Entry(self.mw)
+        self.nw = None
         self.yard_name_input = None
         self.size_input = None
-        self.customer_name = ""
         self.customer_obj = None
+        self.daily_schedule = DailySchedule()
 
     def exit_yard(self):
         # add to daily_schedule queue
+        if self.customer_obj is not None:
+            self.daily_schedule.add_customer(self.customer_obj)
         self.customer_obj = None
         self.nw.destroy()
 
@@ -45,12 +48,14 @@ class Application:
         if self.customer_obj is None:
             self.create_new_customer()
         y = Yard(self.yard_name_input.get(), self.size_input.get())
-        self.customer_obj.yards_queue.enqueue(y)
-
+        y.total_price = y.calculate_total()
+        self.customer_obj.set_yard(y)
+        print(self.customer_obj.yards_queue.size())
         # set fields back to empty
+        self.yard_name_input.delete('0', 'end')
+        self.size_input.delete('0', 'end')
 
     def create_new_customer(self):
-        self.customer_name = self.name_input.get()
 
         # create customer object and append it onto the list
         c = Customer(self.name_input.get(), self.address_input.get(), self.number_input.get())
@@ -67,7 +72,8 @@ class Application:
         self.nw.geometry('500x300')
         self.nw.configure(background='#eee8d5')
 
-        title_label = Label(self.nw, text='Enter Yard: Customer:' + self.customer_name, bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
+        customer_name = self.name_input.get()
+        title_label = Label(self.nw, text='Enter Yard: Customer:' + customer_name, bg='#eee8d5', font=('Lucida Console', 12, 'bold'))
         title_label.place(x=25, y=25)
 
         yard_name_label = Label(self.nw, text='Yard Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))

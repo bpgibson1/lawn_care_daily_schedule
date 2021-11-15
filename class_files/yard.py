@@ -21,9 +21,10 @@ my program.
 
 class Yard:
 
-    def __init__(self, name="", square_footage=0):
+    def __init__(self, name="", square_footage=0, address=""):
         self.yard_name = name
         self.square_footage = int(square_footage)
+        self.address = address
         self._flat_fee = 30
         self._price_breaks = {0: .09, 500: .08, 1000: .06, 1500: .05}
         self._price_break_keys = [0, 500, 1000, 1500]

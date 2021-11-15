@@ -22,9 +22,9 @@ from class_files.queue import Queue
 
 class Customer:
 
-    def __init__(self, name="", address="", number=""):
+    def __init__(self, name="", email="", number=""):
         self.name = name
-        self.address = address
+        self.email = email
         self.phone_num = number
         self.yards_queue = Queue()
 

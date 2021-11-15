@@ -29,15 +29,13 @@ class DailySchedule:
 
     def add_customer(self, customer_obj):
         # calculate and set priority
-        alpha_priority = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5}
         yard_priority = 'E'
         for iteration in range(customer_obj.yards_queue.size()):
             yard = customer_obj.yards_queue.find_at(iteration)
             if yard.priority is None:
                 yard.calculate_total()
-            if alpha_priority[yard_priority] > alpha_priority[yard.priority]:
+            if self.customer_priority_queue.alpha_priority[yard_priority] > self.customer_priority_queue.alpha_priority[yard.priority]:
                 yard_priority = yard.priority
-            print(yard_priority)
         # call queue add
         self.customer_priority_queue.add(customer_obj, yard_priority)
 

@@ -28,12 +28,13 @@ class Application:
 
     def __init__(self, main_window=None):
         self.mw = main_window
-        self.name_input = Entry(self.mw)
-        self.address_input = Entry(self.mw)
-        self.number_input = Entry(self.mw)
+        self.name_input = Entry(self.mw, width=35)
+        self.email_input = Entry(self.mw, width=35)
+        self.number_input = Entry(self.mw, width=35)
         self.nw = None
         self.yard_name_input = None
         self.size_input = None
+        self.address_input = None
         self.customer_obj = None
         self.error_label = Label()
         self.daily_schedule = DailySchedule()
@@ -45,8 +46,8 @@ class Application:
         if self.name_input.get() == "":
             self.error_label.config(text='Please enter customer name')
             return False
-        if self.address_input.get() == "":
-            self.error_label.config(text='Please enter customer address')
+        if self.email_input.get() == "":
+            self.error_label.config(text='Please enter customer email')
             return False
         if self.number_input.get() != "":
             phone_re = '\w{3}-\w{3}-\w{4}'
@@ -59,7 +60,23 @@ class Application:
         return True
 
     def validate_yard_window(self):
-        pass
+        self.error_label.destroy()
+        self.error_label = Label(self.nw, text='', bg='#eee8d5', fg='#eb4034', font=('Lucida Console', 10, 'bold'))
+        self.error_label.place(x=25, y=275)
+        if self.yard_name_input.get() == "":
+            self.error_label.config(text='Please enter yard name')
+            return False
+        if self.size_input.get() != "":
+            if not self.size_input.get().strip().isdigit():
+                self.error_label.config(text='Square footage must be a number')
+                return False
+        else:
+            self.error_label.config(text='Please enter yard square footage')
+            return False
+        if self.address_input.get() == "":
+            self.error_label.config(text='Please enter yard address')
+            return False
+        return True
 
     def exit_yard(self):
         # add to daily_schedule queue
@@ -69,26 +86,30 @@ class Application:
         self.nw.destroy()
 
     def create_new_yard(self):
+        # validate input
+        if not self.validate_yard_window():
+            return
         # Create the customer unless it exists
         if self.customer_obj is None:
             self.create_new_customer()
-        y = Yard(self.yard_name_input.get(), self.size_input.get())
+        y = Yard(self.yard_name_input.get(), self.size_input.get(), self.address_input.get())
         y.total_price = y.calculate_total()
         self.customer_obj.set_yard(y)
         print(self.customer_obj.yards_queue.size())
         # set fields back to empty
         self.yard_name_input.delete('0', 'end')
         self.size_input.delete('0', 'end')
+        self.address_input.delete('0', 'end')
 
     def create_new_customer(self):
 
         # create customer object and append it onto the list
-        c = Customer(self.name_input.get(), self.address_input.get(), self.number_input.get())
+        c = Customer(self.name_input.get(), self.email_input.get(), self.number_input.get())
         self.customer_obj = c
         print(self.customer_obj.name)
         # Reset the fields
         self.name_input.delete('0', 'end')
-        self.address_input.delete('0', 'end')
+        self.email_input.delete('0', 'end')
         self.number_input.delete('0', 'end')
 
     def build_yard(self):
@@ -98,7 +119,7 @@ class Application:
 
         self.nw = Toplevel(self.mw)
         self.nw.title("Lawn Care Daily Schedule")
-        self.nw.geometry('500x300')
+        self.nw.geometry('500x350')
         self.nw.configure(background='#eee8d5')
 
         customer_name = self.name_input.get()
@@ -108,14 +129,20 @@ class Application:
         yard_name_label = Label(self.nw, text='Yard Name:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         yard_name_label.place(x=25, y=75)
 
-        self.yard_name_input = Entry(self.nw)
+        self.yard_name_input = Entry(self.nw, width=35)
         self.yard_name_input.place(x=175, y=75)
 
         size_label = Label(self.nw, text='Square Footage:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         size_label.place(x=25, y=125)
 
-        self.size_input = Entry(self.nw)
+        self.size_input = Entry(self.nw, width=35)
         self.size_input.place(x=175, y=125)
+
+        address_label = Label(self.nw, text='Yard Address:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
+        address_label.place(x=25, y=175)
+
+        self.address_input = Entry(self.nw, width=35)
+        self.address_input.place(x=175, y=175)
 
         exit_button = Button(self.nw, text='Exit', width=25, font=('Lucida Console', 10, 'normal'), command=self.exit_yard)
         exit_button.place(x=25, y=225)
@@ -137,10 +164,10 @@ class Application:
 
         self.name_input.place(x=175, y=75)
 
-        address_label = Label(self.mw, text='Address:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
-        address_label.place(x=25, y=125)
+        email_label = Label(self.mw, text='Email:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
+        email_label.place(x=25, y=125)
 
-        self.address_input.place(x=175, y=125)
+        self.email_input.place(x=175, y=125)
 
         number_label = Label(self.mw, text='Phone Number:', bg='#eee8d5', font=('Lucida Console', 10, 'normal'))
         number_label.place(x=25, y=175)

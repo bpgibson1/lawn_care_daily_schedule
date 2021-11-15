@@ -18,7 +18,7 @@ my program.
 ***************************************************************
 """
 import unittest
-from yard import Yard
+from class_files.yard import Yard
 
 
 class MyTestCase(unittest.TestCase):

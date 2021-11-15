@@ -17,7 +17,7 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
-from priority_queue import PriorityQueue
+from class_files.priority_queue import PriorityQueue
 
 
 class DailySchedule:
@@ -26,6 +26,14 @@ class DailySchedule:
         self.customer_priority_queue = PriorityQueue()
         self._taxes = 0.07
         self._surcharge = 10
+
+    def add_customer(self, customer_obj):
+        # calculate priority
+        for iteration in range(customer_obj.yards_queue.size()):
+            yard = customer_obj.yards_queue.find_at(iteration)
+            print(yard.yard_name, yard.total_price)
+        # set priority
+        # call queue add
 
     def print_invoice(self):
         pass

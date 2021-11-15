@@ -49,6 +49,12 @@ class Queue:
             return first_item
         raise QueueEmptyException
 
+    def find_at(self, index):
+        if 0 <= index <= self.size():
+            return self.items[index]
+        else:
+            return None
+
     def size(self):
         count = 0
         for item in self.items:

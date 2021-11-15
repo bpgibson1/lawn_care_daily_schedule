@@ -27,7 +27,6 @@ class MyTestCase(unittest.TestCase):
         yard = Yard()
         yard.square_footage = 0
         # Actual
-        actual = 0
         # Assert
         with self.assertRaises(ValueError):
             yard.calculate_total()

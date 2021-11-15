@@ -34,6 +34,7 @@ class Application:
         self.yard_name_input = None
         self.size_input = None
         self.customer_obj = None
+        self.error_label = None
         self.daily_schedule = DailySchedule()
 
     def exit_yard(self):
@@ -126,6 +127,12 @@ class Application:
 
         submit_button = Button(self.mw, text='Submit/Add yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         submit_button.place(x=270, y=225)
+
+        invoice_button = Button(self.mw, text='Print Invoices', width=25, font=('Lucida Console', 10, 'normal'), command=None)
+        invoice_button.place(x=25, y=275)
+
+        schedule_button = Button(self.mw, text='Print Schedule', width=25, font=('Lucida Console', 10, 'normal'), command=None)
+        schedule_button.place(x=270, y=275)
 
 
 def main():

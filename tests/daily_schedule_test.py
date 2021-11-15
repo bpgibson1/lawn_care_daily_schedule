@@ -97,7 +97,53 @@ class MyTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             ds.add_customer(customer)
 
+    def test_add_priority_A(self):
+        # Arrange
+        yard = Yard("", 1600)
+        yard2 = Yard("", 480)
+        yard3 = Yard("", 1250)
+        customer = Customer()
+        customer.set_yard(yard)
+        customer.set_yard(yard2)
+        customer.set_yard(yard3)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "A"
+        self.assertEquals(expected, actual)
 
+    def test_add_priority_C(self):
+        # Arrange
+        yard = Yard("", 480)
+        yard2 = Yard("", 850)
+        customer = Customer()
+        customer.set_yard(yard2)
+        customer.set_yard(yard)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "C"
+        self.assertEquals(expected, actual)
+
+    def test_add_priority_D(self):
+        # Arrange
+        yard = Yard("", 480)
+        customer = Customer()
+        customer.set_yard(yard)
+        ds = DailySchedule()
+        ds.add_customer(customer)
+        # Actual
+        actual = ds.customer_priority_queue.peek()
+        actual = actual.priority
+        # Assert
+        expected = "D"
+        self.assertEquals(expected, actual)
 
 
 if __name__ == '__main__':

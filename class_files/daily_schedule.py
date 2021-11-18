@@ -18,12 +18,14 @@ my program.
 ***************************************************************
 """
 from class_files.priority_queue import PriorityQueue
+from datetime import date
 
 
 class DailySchedule:
 
     def __init__(self):
         self.customer_priority_queue = PriorityQueue()
+        self.today = date.today()
         self._taxes = 0.07
         self._surcharge = 10
 

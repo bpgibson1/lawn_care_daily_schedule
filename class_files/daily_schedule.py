@@ -46,20 +46,41 @@ class DailySchedule:
         self.customer_priority_queue.add(customer_obj, yard_priority)
 
     def print_invoice(self):
+        total = 0
         working_dir = os.path.dirname(__file__)
         for iteration in range(self.customer_priority_queue.size()):
             node = self.customer_priority_queue.remove()
-            file_name = '../output_files/invoice/' + (node.customer.name + "_" + self.today + '.txt').replace(" ", "_")
-            abs_path = os.path.join(working_dir, file_name)
-            invoice_file = open(abs_path, 'x')
-            invoice_file.write("~~~~~~~~~~~~~~~~~~Customer Copy~~~~~~~~~~~~~~~~~~")
-            invoice_file.write("Customer: {}".format(node.customer.name))
-            invoice_file.write("Eamil: {}".format(node.customer.email))
-            invoice_file.write("Phone Number: {}".format(node.customer.number))
-            invoice_file.write("")
-            for index in node.customer.yards_queue.size():
+            invoice_name = '../output_files/invoice/' + (node.customer.name + "_" + self.today + '.txt').replace(" ", "_")
+            invoice_path = os.path.join(working_dir, invoice_name)
+            invoice_file = open(invoice_path, 'w')
+            invoice_file.write("~~~~~~~~~~~~~~~~~~Customer Copy~~~~~~~~~~~~~~~~~~~\n")
+
+            invoice_file.write("Customer: {}\n".format(node.customer.name))
+            invoice_file.write("Eamil: {}\n".format(node.customer.email))
+            invoice_file.write("Phone Number: {}\n".format(node.customer.phone_num))
+            invoice_file.write("\n")
+            invoice_file.write("~~~~~~~~~~~~~~~~~Yard Information~~~~~~~~~~~~~~~~~\n")
+            for index in range(node.customer.yards_queue.size()):
                 yard = node.customer.yards_queue.find_at(index)
-                invoice_file.write("Yard: {}".format(yard.yard_name))
+                invoice_file.write("Yard: {}\n".format(yard.yard_name))
+                invoice_file.write("Location: {}\n".format(yard.address))
+                if yard.fee_flag == 1:
+                    invoice_file.write("1 @ ${}\n".format(yard.get_flat_fee()))
+                else:
+                    invoice_file.write("{}sqft @ ${}\n".format(yard.square_footage, yard.price_per_square_foot))
+                invoice_file.write("Yard Subtotal: ${}\n".format(yard.total_price))
+                total += yard.total_price
+                invoice_file.write("--------------------------------------------------\n")
+
+            tax = total - total * self._taxes
+            invoice_file.write("Tax: {} @ ${} = ${}\n".format(total, self._taxes, tax))
+            surcharge = node.customer.yards_queue.size() * self._surcharge
+            invoice_file.write("Surcharge: {} @ ${} = ${}\n".format(node.customer.yards_queue.size(), self._surcharge, surcharge))
+            invoice_file.write("--------------------------------------------------\n")
+            total_due = total + tax + surcharge
+            invoice_file.write("TOTAL DUE: ${}\n".format(total_due))
+            invoice_file.write("I agree to pay the total indicated on this invoice\n")
+            invoice_file.write("Invoice will be due at the time of service\n")
             invoice_file.close()
 
     def print_schedule(self):
@@ -73,6 +94,7 @@ if __name__ == '__main__':
     c.name = "Bryner Gibson"
     y = Yard()
     y.square_footage = 1250
+    y.total_price = y.calculate_total()
     c.set_yard(y)
 
     ds = DailySchedule()

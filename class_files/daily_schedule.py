@@ -17,15 +17,19 @@ unmodified. I have not given other fellow student(s) access to
 my program.         
 ***************************************************************
 """
+from class_files.customer import Customer
 from class_files.priority_queue import PriorityQueue
 from datetime import date
+import os
+
+from class_files.yard import Yard
 
 
 class DailySchedule:
 
     def __init__(self):
         self.customer_priority_queue = PriorityQueue()
-        self.today = date.today().strftime("%B %d, %Y")
+        self.today = date.today().strftime("%B %d, %Y").replace(",", "")
         self._taxes = 0.07
         self._surcharge = 10
 
@@ -42,11 +46,36 @@ class DailySchedule:
         self.customer_priority_queue.add(customer_obj, yard_priority)
 
     def print_invoice(self):
-        while not self.customer_priority_queue.is_empty():
-            print(self.customer_priority_queue.remove().customer.name)
+        working_dir = os.path.dirname(__file__)
+        for iteration in range(self.customer_priority_queue.size()):
+            node = self.customer_priority_queue.remove()
+            file_name = '../output_files/invoice/' + (node.customer.name + "_" + self.today + '.txt').replace(" ", "_")
+            abs_path = os.path.join(working_dir, file_name)
+            invoice_file = open(abs_path, 'x')
+            invoice_file.write("~~~~~~~~~~~~~~~~~~Customer Copy~~~~~~~~~~~~~~~~~~")
+            invoice_file.write("Customer: {}".format(node.customer.name))
+            invoice_file.write("Eamil: {}".format(node.customer.email))
+            invoice_file.write("Phone Number: {}".format(node.customer.number))
+            invoice_file.write("")
+            for index in node.customer.yards_queue.size():
+                yard = node.customer.yards_queue.find_at(index)
+                invoice_file.write("Yard: {}".format(yard.yard_name))
+            invoice_file.close()
 
     def print_schedule(self):
         pass
-
     def sort_customer(self):
         pass
+
+
+if __name__ == '__main__':
+    c = Customer()
+    c.name = "Bryner Gibson"
+    y = Yard()
+    y.square_footage = 1250
+    c.set_yard(y)
+
+    ds = DailySchedule()
+    ds.add_customer(c)
+
+    ds.print_invoice()

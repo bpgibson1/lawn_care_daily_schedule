@@ -182,11 +182,11 @@ class Application:
         submit_button = Button(self.mw, text='Submit/Add yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         submit_button.place(x=270, y=225)
 
-        invoice_button = Button(self.mw, text='Print Invoices', width=25, font=('Lucida Console', 10, 'normal'), command=self.daily_schedule.print_invoice)
-        invoice_button.place(x=25, y=275)
+        invoice_button = Button(self.mw, text='Print Invoices and Schedule', width=56, font=('Lucida Console', 10, 'normal'), command=self.daily_schedule.print_invoice)
+        invoice_button.place(x=24, y=275)
 
-        schedule_button = Button(self.mw, text='Print Schedule', width=25, font=('Lucida Console', 10, 'normal'), command=None)
-        schedule_button.place(x=270, y=275)
+        # schedule_button = Button(self.mw, text='Print Schedule', width=25, font=('Lucida Console', 10, 'normal'), command=None)
+        # schedule_button.place(x=270, y=275)
 
 
 def main():

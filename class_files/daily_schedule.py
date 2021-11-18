@@ -25,7 +25,7 @@ class DailySchedule:
 
     def __init__(self):
         self.customer_priority_queue = PriorityQueue()
-        self.today = date.today()
+        self.today = date.today().strftime("%B %d, %Y")
         self._taxes = 0.07
         self._surcharge = 10
 
@@ -42,10 +42,11 @@ class DailySchedule:
         self.customer_priority_queue.add(customer_obj, yard_priority)
 
     def print_invoice(self):
+        while not self.customer_priority_queue.is_empty():
+            print(self.customer_priority_queue.remove().customer.name)
+
+    def print_schedule(self):
         pass
 
     def sort_customer(self):
-        pass
-
-    def print_schedule(self):
         pass

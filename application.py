@@ -106,7 +106,6 @@ class Application:
         # create customer object and append it onto the list
         c = Customer(self.name_input.get(), self.email_input.get(), self.number_input.get())
         self.customer_obj = c
-        print(self.customer_obj.name)
         # Reset the fields
         self.name_input.delete('0', 'end')
         self.email_input.delete('0', 'end')
@@ -183,7 +182,7 @@ class Application:
         submit_button = Button(self.mw, text='Submit/Add yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         submit_button.place(x=270, y=225)
 
-        invoice_button = Button(self.mw, text='Print Invoices', width=25, font=('Lucida Console', 10, 'normal'), command=None)
+        invoice_button = Button(self.mw, text='Print Invoices', width=25, font=('Lucida Console', 10, 'normal'), command=self.daily_schedule.print_invoice)
         invoice_button.place(x=25, y=275)
 
         schedule_button = Button(self.mw, text='Print Schedule', width=25, font=('Lucida Console', 10, 'normal'), command=None)

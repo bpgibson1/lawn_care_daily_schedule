@@ -27,15 +27,13 @@ import collections
 class Node:
 
     def __init__(self, data, priority):
-        self.job_num = data
+        self.customer = data
         self.priority = priority
 
 
 class PriorityQueue:
 
     def __init__(self):
-        self.head = -1
-        self.tail = -1
         self.alpha_priority = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5}
         self.items = collections.deque()
 
@@ -43,8 +41,6 @@ class PriorityQueue:
         return self.size() == 0
 
     def add(self, item, priority):
-        self.head = 0
-        self.tail += 1
         new_node = Node(item, priority)
         if self.is_empty():
             self.items.append(new_node)
@@ -52,19 +48,17 @@ class PriorityQueue:
         self.items.append(new_node)
         sorting = True
         while sorting:
+
             sorting = False
-            for index in range(len(self.items) - 1):
+            for index in range(self.size() - 1):
                 if self.alpha_priority[self.items[index].priority] > self.alpha_priority[self.items[index + 1].priority]:
                     swap = self.items[index]
                     self.items[index] = self.items[index + 1]
                     self.items[index + 1] = swap
                     sorting = True
-        else:
-            raise QueueFullException
 
     def remove(self):
         if not self.is_empty():
-            self.tail -= 1
             return self.items.popleft()
         else:
             raise QueueEmptyException
@@ -86,6 +80,6 @@ class PriorityQueue:
         queue_str = ""
         if not self.is_empty():
             for item in self.items:
-                queue_str += 'Priority: {} Item: {}\n'.format(item.priority, item.job_num)
+                queue_str += 'Priority: {} Item: {}\n'.format(item.priority, item.customer)
             return queue_str
         return "Queue is Empty"

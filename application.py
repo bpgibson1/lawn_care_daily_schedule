@@ -19,6 +19,7 @@ my program.
 """
 from tkinter import *
 import re
+import time
 from class_files.customer import Customer
 from class_files.yard import Yard
 from class_files.daily_schedule import DailySchedule
@@ -77,6 +78,14 @@ class Application:
             self.error_label.config(text='Please enter yard address')
             return False
         return True
+
+    def print_invoice(self):
+        self.error_label.destroy()
+        self.error_label = Label(self.nw, text='Files Complete, please exit program', bg='#eee8d5', font=('Lucida Console', 10, 'bold'))
+        self.error_label.place(x=25, y=325)
+
+        self.daily_schedule.print_invoice()
+        time.sleep(3)
 
     def exit_yard(self):
         # add to daily_schedule queue
@@ -182,7 +191,7 @@ class Application:
         submit_button = Button(self.mw, text='Submit/Add yard', width=25, font=('Lucida Console', 10, 'normal'), command=self.build_yard)
         submit_button.place(x=270, y=225)
 
-        invoice_button = Button(self.mw, text='Print Invoices and Schedule', width=56, font=('Lucida Console', 10, 'normal'), command=self.daily_schedule.print_invoice)
+        invoice_button = Button(self.mw, text='Print Invoices and Schedule', width=56, font=('Lucida Console', 10, 'normal'), command=self.print_invoice)
         invoice_button.place(x=24, y=275)
 
         # schedule_button = Button(self.mw, text='Print Schedule', width=25, font=('Lucida Console', 10, 'normal'), command=None)

@@ -21,6 +21,7 @@ from class_files.customer import Customer
 from class_files.priority_queue import PriorityQueue
 from datetime import date
 import os
+import uuid
 
 from class_files.yard import Yard
 
@@ -48,13 +49,18 @@ class DailySchedule:
     def print_invoice(self):
         total = 0
         working_dir = os.path.dirname(__file__)
+        schedule_name = ('../output_files/schedule/' + 'daily_schedule' + "_" + self.today + '.txt').replace(" ", "_")
+        schedule_path = os.path.join(working_dir, schedule_name)
+        schedule_file = open(schedule_path, 'w')
+
         for iteration in range(self.customer_priority_queue.size()):
+            invoice_id = uuid.uuid4()
             node = self.customer_priority_queue.remove()
             invoice_name = '../output_files/invoice/' + (node.customer.name + "_" + self.today + '.txt').replace(" ", "_")
             invoice_path = os.path.join(working_dir, invoice_name)
             invoice_file = open(invoice_path, 'w')
             invoice_file.write("~~~~~~~~~~~~~~~~~~Customer Copy~~~~~~~~~~~~~~~~~~~\n")
-
+            invoice_file.write("Invoice Id: {}\n".format(invoice_id))
             invoice_file.write("Customer: {}\n".format(node.customer.name))
             invoice_file.write("Eamil: {}\n".format(node.customer.email))
             invoice_file.write("Phone Number: {}\n".format(node.customer.phone_num))
@@ -62,6 +68,7 @@ class DailySchedule:
             invoice_file.write("~~~~~~~~~~~~~~~~~Yard Information~~~~~~~~~~~~~~~~~\n")
             for index in range(node.customer.yards_queue.size()):
                 yard = node.customer.yards_queue.find_at(index)
+                self.print_schedule(schedule_file, invoice_id, iteration + index + 1, node.customer, yard)
                 invoice_file.write("Yard: {}\n".format(yard.yard_name))
                 invoice_file.write("Location: {}\n".format(yard.address))
                 if yard.fee_flag == 1:
@@ -83,21 +90,31 @@ class DailySchedule:
             invoice_file.write("Invoice will be due at the time of service\n")
             invoice_file.close()
 
-    def print_schedule(self):
-        pass
+    def print_schedule(self, file, i_id, completed, customer, yard):
+        file.write('----------------------Customer----------------------\n')
+        file.write('Invoice Id: {} \n'.format(i_id))
+        file.write('Needs Completed: {}\n'.format(completed))
+        file.write("Customer: {}\n".format(customer.name))
+        file.write("Eamil: {}\n".format(customer.email))
+        file.write("Phone Number: {}\n\n".format(customer.phone_num))
+        file.write('Yard Address: {}\n'.format(yard.address))
+        file.write('Yard Size: {}\n'.format(yard.square_footage))
+
+
+
     def sort_customer(self):
         pass
 
 
-if __name__ == '__main__':
-    c = Customer()
-    c.name = "Bryner Gibson"
-    y = Yard()
-    y.square_footage = 1250
-    y.total_price = y.calculate_total()
-    c.set_yard(y)
-
-    ds = DailySchedule()
-    ds.add_customer(c)
-
-    ds.print_invoice()
+# if __name__ == '__main__':
+#     c = Customer()
+#     c.name = "Bryner Gibson"
+#     y = Yard()
+#     y.square_footage = 1250
+#     y.total_price = y.calculate_total()
+#     c.set_yard(y)
+#
+#     ds = DailySchedule()
+#     ds.add_customer(c)
+#
+#     ds.print_invoice()

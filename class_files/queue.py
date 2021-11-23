@@ -59,7 +59,6 @@ class Queue:
         if 0 <= a_index <= self.size() and 0 <= b_index <= self.size() and a_index != b_index:
             self.items[a_index], self.items[b_index] = self.items[b_index], self.items[a_index]
 
-
     def size(self):
         count = 0
         for item in self.items:

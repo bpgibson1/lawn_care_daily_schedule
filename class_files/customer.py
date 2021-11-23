@@ -41,27 +41,3 @@ class Customer:
                 if self.yards_queue.find_at(min_index).square_footage < self.yards_queue.find_at(j).square_footage:
                     min_index = j
             self.yards_queue.swap(min_index, index)
-
-
-if __name__ == '__main__':
-    c = Customer()
-    y1 = Yard("", 450)
-    # y2 = Yard("", 350)
-    # y3 = Yard("", 250)
-    # y4 = Yard("", 1250)
-    # c.set_yard(y1)
-    # c.set_yard(y2)
-    # c.set_yard(y3)
-    c.set_yard(y1)
-
-    print(c.yards_queue.size())
-    for yard in c.yards_queue.items:
-        print(yard.square_footage)
-
-    c.sort_yard()
-
-    print(c.yards_queue.size())
-    for yard in c.yards_queue.items:
-        print(yard.square_footage)
-
-

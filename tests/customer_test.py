@@ -77,5 +77,6 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(450, c.yards_queue.find_at(1).square_footage)
         self.assertEqual("yard2", c.yards_queue.find_at(1).yard_name)
 
+
 if __name__ == '__main__':
     unittest.main()

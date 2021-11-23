@@ -18,12 +18,11 @@ my program.
 ***************************************************************
 """
 from class_files.customer import Customer
+from class_files.yard import Yard
 from class_files.priority_queue import PriorityQueue
 from datetime import date
 import os
 import uuid
-
-from class_files.yard import Yard
 
 
 class DailySchedule:
@@ -99,11 +98,6 @@ class DailySchedule:
         file.write("Phone Number: {}\n\n".format(customer.phone_num))
         file.write('Yard Address: {}\n'.format(yard.address))
         file.write('Yard Size: {}\n'.format(yard.square_footage))
-
-
-
-    def sort_customer(self):
-        pass
 
 
 # if __name__ == '__main__':

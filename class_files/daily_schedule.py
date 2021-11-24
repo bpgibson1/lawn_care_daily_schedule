@@ -65,6 +65,7 @@ class DailySchedule:
             invoice_file.write("Phone Number: {}\n".format(node.customer.phone_num))
             invoice_file.write("\n")
             invoice_file.write("~~~~~~~~~~~~~~~~~Yard Information~~~~~~~~~~~~~~~~~\n")
+            node.customer.sort_yard()
             for index in range(node.customer.yards_queue.size()):
                 yard = node.customer.yards_queue.find_at(index)
                 self.print_schedule(schedule_file, invoice_id, iteration + index + 1, node.customer, yard)

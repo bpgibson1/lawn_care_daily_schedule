@@ -81,7 +81,7 @@ class Application:
 
     def print_invoice(self):
         self.error_label.destroy()
-        self.error_label = Label(self.nw, text='Files Complete, please exit program', bg='#eee8d5', font=('Lucida Console', 10, 'bold'))
+        self.error_label = Label(self.mw, text='Files Complete, please exit program', bg='#eee8d5', font=('Lucida Console', 10, 'bold'))
         self.error_label.place(x=25, y=325)
 
         self.daily_schedule.print_invoice()

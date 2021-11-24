@@ -35,7 +35,6 @@ class Yard:
 
     def calculate_total(self):
         # Calculate total based on price breaks
-        price_per_square_foot = 0
         if self.square_footage <= self._price_break_keys[0]:
             raise ValueError
         elif self.square_footage <= self._price_break_keys[1]:

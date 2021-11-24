@@ -56,6 +56,8 @@ class Queue:
             return None
 
     def swap(self, a_index, b_index):
+        if self.is_empty():
+            raise QueueEmptyException
         if 0 <= a_index <= self.size() and 0 <= b_index <= self.size() and a_index != b_index:
             self.items[a_index], self.items[b_index] = self.items[b_index], self.items[a_index]
 

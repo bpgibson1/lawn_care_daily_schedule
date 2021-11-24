@@ -40,6 +40,7 @@ class MyTestCase(unittest.TestCase):
         actual = yard.calculate_total()
         # Assert
         self.assertEqual(expected, actual)
+        self.assertEqual('D', yard.priority)
 
     def test_square_footage_first_range_low(self):
         # Arrange
@@ -50,6 +51,7 @@ class MyTestCase(unittest.TestCase):
         actual = yard.calculate_total()
         # Assert
         self.assertEqual(expected, actual)
+        self.assertEqual('D', yard.priority)
 
     def test_square_footage_second_range(self):
         # Arrange
@@ -60,6 +62,7 @@ class MyTestCase(unittest.TestCase):
         actual = yard.calculate_total()
         # Assert
         self.assertEqual(expected, actual)
+        self.assertEqual('C', yard.priority)
 
     def test_square_footage_third_range(self):
         # Arrange
@@ -70,6 +73,7 @@ class MyTestCase(unittest.TestCase):
         actual = yard.calculate_total()
         # Assert
         self.assertEqual(expected, actual)
+        self.assertEqual('B', yard.priority)
 
     def test_square_footage_fourth_range(self):
         # Arrange
@@ -80,6 +84,7 @@ class MyTestCase(unittest.TestCase):
         actual = yard.calculate_total()
         # Assert
         self.assertEqual(expected, actual)
+        self.assertEqual('A', yard.priority)
 
 
 if __name__ == '__main__':

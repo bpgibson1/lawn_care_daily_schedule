@@ -18,7 +18,6 @@ my program.
 ***************************************************************
 """
 from exceptions.QueueEmptyException import QueueEmptyException
-from exceptions.QueueFullException import QueueFullException
 import collections
 
 
@@ -37,6 +36,12 @@ class PriorityQueue:
 
     def is_empty(self):
         return self.size() == 0
+
+    def find_at(self, index):
+        if 0 <= index <= self.size():
+            return self.items[index]
+        else:
+            return None
 
     def add(self, item, priority):
         new_node = Node(item, priority)
@@ -62,11 +67,11 @@ class PriorityQueue:
             raise QueueEmptyException
 
     def peek(self):
-        if not self.is_empty():
-            first_item = self.items.popleft()
-            self.items.appendleft(first_item)
-            return first_item
-        raise QueueEmptyException
+        if self.is_empty():
+            raise QueueEmptyException
+        first_item = self.items.popleft()
+        self.items.appendleft(first_item)
+        return first_item
 
     def size(self):
         count = 0
@@ -74,10 +79,3 @@ class PriorityQueue:
             count += 1
         return count
 
-    def print_(self):
-        queue_str = ""
-        if not self.is_empty():
-            for item in self.items:
-                queue_str += 'Priority: {} Item: {}\n'.format(item.priority, item.customer)
-            return queue_str
-        return "Queue is Empty"

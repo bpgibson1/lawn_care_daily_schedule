@@ -72,6 +72,7 @@ class DailySchedule:
                 invoice_file.write("Yard: {}\n".format(yard.yard_name))
                 invoice_file.write("Location: {}\n".format(yard.address))
                 if yard.fee_flag == 1:
+                    invoice_file.write("sqft fee under flat fee\n")
                     invoice_file.write("1 @ ${}\n".format(yard.get_flat_fee()))
                 else:
                     invoice_file.write("{}sqft @ ${}\n".format(yard.square_footage, yard.price_per_square_foot))
@@ -85,7 +86,7 @@ class DailySchedule:
             invoice_file.write("Surcharge: {} @ ${} = ${}\n".format(node.customer.yards_queue.size(), self._surcharge, surcharge))
             invoice_file.write("--------------------------------------------------\n")
             total_due = total + tax + surcharge
-            invoice_file.write("TOTAL DUE: ${}\n".format(total_due))
+            invoice_file.write("TOTAL DUE: ${:.2f}\n".format(total_due))
             invoice_file.write("I agree to pay the total indicated on this invoice\n")
             invoice_file.write("Invoice will be due at the time of service\n")
             invoice_file.close()

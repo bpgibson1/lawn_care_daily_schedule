@@ -104,7 +104,6 @@ class Application:
         y = Yard(self.yard_name_input.get(), self.size_input.get(), self.address_input.get())
         y.total_price = y.calculate_total()
         self.customer_obj.set_yard(y)
-        print(self.customer_obj.yards_queue.size())
         # set fields back to empty
         self.yard_name_input.delete('0', 'end')
         self.size_input.delete('0', 'end')

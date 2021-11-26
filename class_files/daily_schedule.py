@@ -80,7 +80,7 @@ class DailySchedule:
                 total += yard.total_price
                 invoice_file.write("--------------------------------------------------\n")
 
-            tax = total - total * self._taxes
+            tax = total + total * self._taxes
             invoice_file.write("Tax: {} @ ${} = ${}\n".format(total, self._taxes, tax))
             surcharge = node.customer.yards_queue.size() * self._surcharge
             invoice_file.write("Surcharge: {} @ ${} = ${}\n".format(node.customer.yards_queue.size(), self._surcharge, surcharge))

@@ -53,6 +53,7 @@ class DailySchedule:
         schedule_file = open(schedule_path, 'w')
 
         for iteration in range(self.customer_priority_queue.size()):
+            total = 0
             invoice_id = uuid.uuid4()
             node = self.customer_priority_queue.remove()
             invoice_name = '../output_files/invoice/' + (node.customer.name + "_" + self.today + '.txt').replace(" ", "_")

@@ -82,7 +82,7 @@ class DailySchedule:
                 invoice_file.write("--------------------------------------------------\n")
 
             tax = total * self._taxes
-            invoice_file.write("Tax: {} @ ${} = ${}\n".format(total, self._taxes, tax))
+            invoice_file.write("Tax: {} @ ${} = ${:.2f}\n".format(total, self._taxes, tax))
             surcharge = node.customer.yards_queue.size() * self._surcharge
             invoice_file.write("Surcharge: {} @ ${} = ${}\n".format(node.customer.yards_queue.size(), self._surcharge, surcharge))
             invoice_file.write("--------------------------------------------------\n")

@@ -77,7 +77,7 @@ class DailySchedule:
                     invoice_file.write("1 @ ${}\n".format(yard.get_flat_fee()))
                 else:
                     invoice_file.write("{}sqft @ ${}\n".format(yard.square_footage, yard.price_per_square_foot))
-                invoice_file.write("Yard Subtotal: ${}\n".format(yard.total_price))
+                invoice_file.write("Yard Subtotal: ${:.2f}\n".format(yard.total_price))
                 total += yard.total_price
                 invoice_file.write("--------------------------------------------------\n")
 
